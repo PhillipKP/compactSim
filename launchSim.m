@@ -11,7 +11,7 @@ function [] = launchSim()
 %% User Defined Variables
 
 % Number of measurements
-numMeas = 256;
+numMeas = 20;
 
 % Signal to Noise
 snr = 2;
@@ -40,8 +40,8 @@ for mu = muList
     for noiseInd = noiseIterList
         
         
-        [S, Els, Ennls, Elasso, ab_lassoList, ab_lsList, F, meas, ...
-            noise_std, minIndList] = ...
+        [Els, Ennls, Elasso, ab_lassoList, ab_lsList, ...
+            F, usedFilterList, abTrue, noiseList] = ...
             compactSim(plotOn, numMeas, mu, noiseInd, filterType, rmsePlotOn);
         
         ElsList = [ElsList; Els];
@@ -62,7 +62,7 @@ for mu = muList
         
         save(fileName,...
             'ElsAvg','ElassoAvg','EnnlsAvg', 'snr','mu','numMeas',...
-            'noiseIterList','S','muList','snr','noiseInd');
+            'noiseIterList','muList','snr','noiseInd');
         
         
     end
@@ -82,10 +82,7 @@ for mu = muList
     hold off
     drawnow
     
-    figure(9);
-    semilogy(meas,'linewidth',3)
-    title('L vs measurement')
-    grid on;
+
     
     
 end
